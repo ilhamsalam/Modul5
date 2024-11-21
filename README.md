@@ -43,74 +43,60 @@ func printStars(n int) {
 
 
 ```
-Operasi diatas merupakan operasi mendefinisikan sebuah struktur data (struct) yang diberi nama Peserta.
-
-```go
-func hitungSkor(nama string, waktu []int) Peserta {
-    const maxWaktu = 301
-    soalSelesai := 0
-    totalWaktu := 0
-
-    for _, w := range waktu {
-        if w < maxWaktu {
-            soalSelesai++
-            totalWaktu += w
-        }
-    }
-
-    return Peserta{nama, soalSelesai, totalWaktu}
-}
-```
-Operasi diatas merupakan operasi menghitung skor seorang peserta dalam suatu kompetisi atau ujian berdasarkan waktu yang mereka gunakan untuk menyelesaikan setiap soal.
-
-```go
-var n int
-    fmt.Print("Masukkan jumlah peserta: ")
-    fmt.Scan(&n)
-
-    pesertaList := make([]Peserta, n)
-
-    for i := 0; i < n; i++ {
-        var nama string
-        var waktu [8]int
-
-        fmt.Print("Masukkan nama peserta: ")
-        fmt.Scan(&nama)
-
-        fmt.Print("Masukkan waktu penyelesaian untuk 8 soal (dalam menit): ")
-        for j := 0; j < 8; j++ {
-            fmt.Scan(&waktu[j])
-        }
-
-        pesertaList[i] = hitungSkor(nama, waktu[:])
-    }
-```
-Operasi diatas merupakan operasi mengumpulkan data dari pengguna, yaitu jumlah peserta, nama peserta, dan waktu penyelesaian setiap soal.
-
-```go
-pemenang := pesertaList[0]
-    for _, peserta := range pesertaList {
-        if peserta.soalSelesai > pemenang.soalSelesai || 
-           (peserta.soalSelesai == pemenang.soalSelesai && peserta.totalWaktu < pemenang.totalWaktu) {
-            pemenang = peserta
-        }
-    }
-```
-Operasi diatas merupakan operasi mencari dan menentukan siapa peserta dengan skor tertinggi (pemenang) dari seluruh peserta yang datanya telah dikumpulkan sebelumnya.
+Operasi diatas merupakan operasi mencetak bintang dengan tinggi n dengan cara fungsi memanggil dirinya sendiri dengan n-1 sebagai argumen dan mencetak segitiga ke n sampai n=1
 
 ## Soal 3
 ```go
-func cetakDeret(n int) {
-        for n != 1 {
-                fmt.Print(n, " ")
-                if n%2 == 0 {
-                        n /= 2
-                } else {
-                        n = 3*n + 1
-                }
-        }
-        fmt.Println(1)
+func findFactors(number, divisor int) {
+        if divisor > number {
+                return
+        }
+        if number%divisor == 0 {
+                fmt.Print(divisor, " ")
+        }
+        findFactors(number, divisor+1)
 }
 ```
+Operasi diatas merupakan operasi mencari faktor bilangan dari suatu angka dengan cara jika suatu angka habis dibagi oleh pembagi atau hasilnya sama dengan nol maka pembagi adalah faktor angka tersebut. Hal ini dilakukan sampai pembagi lebih besar sampai angka yang dibagi
 
-Operasi diatas merupakan operasi  untuk menghitung nilai barisan deret suku berikutnya jika nilai n genap maka suku berikutnya n * 1/2 dan jika nilai n ganjil maka suku berikutnya 3*n + 1
+## Soal 4
+```go
+func printSequence(n int) {
+        if n == 1 {
+                fmt.Print(n, " ")
+                return
+        }
+        fmt.Print(n, " ")
+        printSequence(n - 1)
+        if n > 1 {
+                fmt.Print(n, " ")
+        }
+}
+```
+Operasi diatas merupakan operasi mencetak bilangan n ke 1 kemudian ke n lagi
+
+## Soal 5
+```go
+func printOddNumbers(n int) {
+        if n < 1 {
+                return
+        }
+        printOddNumbers(n - 2)
+        fmt.Print(n, " ")
+}
+```
+Operasi diatas merupakan operasi mencetak bilangan ganjil dengan cara pertama melihat nilai n adalah genap maka dicari dulu nilai ganjil terdekat kemudian dijalankan fungsi mencari nilai ganjil dengan n-2 sebagai argumen dan dicetak sampai n kurang dari 1
+
+## Soal 6
+```go
+func power(x, y int) int {
+        if y == 0 {
+                return 1
+        } else if y > 0 {
+                return x * power(x, y-1)
+        } else {
+                return 1 / power(x, -y)
+        }
+}
+```
+Operasi diatas merupakan operasi menghitung pangkat suatu bilangan dengan cara jika bilangan pangkat positif maka fungsi akan memanggil dirinya sendiri dengan x yang sama dan y-1 sebagai pangkat. Hasilnya kemudian dikalikan dengan x. Jika pangkat negatif maka maka fungsi menghitung pangkat positif dari x dengan pangkat -y dan kemudian membagi 1 dengan hasil tersebut sampai y = 0 dengan hasil 1
